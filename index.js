@@ -5,6 +5,9 @@ const express = require('express');
 
 const app = express();
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+app.use(morgan('combined', {stream: accessLogStream}));
+
 let myTopTen = [
     {"title": "1. Roma"},
     {"title": "2. Marriage Story"},
