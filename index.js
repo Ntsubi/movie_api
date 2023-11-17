@@ -1,8 +1,21 @@
 const express = require('express');
 const app = express();
 
+let myTopTen = [
+    {"title": "1. Roma"},
+    {"title": "2. Marriage Story"},
+    {"title": "3. Groundhog Day"}, 
+    {"title": "4. Black Panther"},
+    {"title": "5. Mudbound"},
+    {"title": "6. The Dark Knight"},
+    {"title": "7. Past Lives"},
+    {"title": "8. Shrek"},
+    {"title": "9. The Devil Wears Prada"},
+    {"title": "10. Home Alone"}
+];
+
 app.get('/movies', (req, res) => {
-    res.json('My top 10 movies');
+    res.json(myTopTen);
 });
 
 app.get('/', (req, res) => {
