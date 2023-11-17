@@ -6,7 +6,6 @@ const express = require('express');
 const app = express();
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
-app.use(morgan('combined', {stream: accessLogStream}));
 
 let myTopTen = [
     {"title": "1. Roma"},
@@ -20,6 +19,9 @@ let myTopTen = [
     {"title": "9. The Devil Wears Prada"},
     {"title": "10. Home Alone"}
 ];
+
+app.use(morgan('combined', {stream: accessLogStream}));
+app.use(express.static('public'));
 
 app.get('/movies', (req, res) => {
     res.json(myTopTen);
