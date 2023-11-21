@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 //Creates a write stream (in append mode). A 'log.txt' file is created in root directory 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
-let myTopTen = [
+let movies = [
     {"title": "1. Roma"},
     {"title": "2. Marriage Story"},
     {"title": "3. Groundhog Day"}, 
@@ -29,7 +29,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.static('public'));
 
 app.get('/movies', (req, res) => {
-    res.json(myTopTen);
+    res.status(200).json(movies);
 });
 
 app.get('/', (req, res) => {
