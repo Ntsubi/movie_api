@@ -1,12 +1,15 @@
-const express = require('express');
-    morgan = require('morgan');
-    fs = require('fs');
-    path = require('path'); 
+const express = require('express'),
+    morgan = require('morgan'),
+    fs = require('fs'),
+    path = require('path'), 
+    uuid = require('uuid'),
+    bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(bodyParser.json());
 //Creates a write stream (in append mode). A 'log.txt' file is created in root directory 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
 let myTopTen = [
     {"title": "1. Roma"},
