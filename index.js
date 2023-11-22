@@ -14,7 +14,7 @@ let users = [
     {
         name: "Saeed",
         id: 1,
-        favoriteMovies: []
+        favoriteMovies: ["Moulin Rouge"]
     },
     {
         name: "Siya",
@@ -185,6 +185,22 @@ if (user) {
     user.favoriteMovies.push(movieTitle);
 
     res.status(200).send(`${movieTitle} has been added to ${id}'s array.`);
+} else {
+    res.status(400).send('This user couldn\'nt be found.')
+}
+
+})
+
+//Deletes a movie from a user's array
+app.delete('/users/:id/:movieTitle', (req, res) => {
+    const { id, movieTitle } = req.params;
+
+    let user = users.find(user => user.id == id);
+
+if (user) {
+    user.favoriteMovies = user.favoriteMovies.filter(title => title !== movieTitle);
+
+    res.status(200).send(`${movieTitle} has been removed from ${id}'s array.`);
 } else {
     res.status(400).send('This user couldn\'nt be found.')
 }
