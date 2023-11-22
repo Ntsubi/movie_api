@@ -175,6 +175,22 @@ if (user) {
 
 })
 
+//Adding a movie to the array
+app.post('/users/:id/:movieTitle', (req, res) => {
+    const { id, movieTitle } = req.params;
+
+    let user = users.find(user => user.id == id);
+
+if (user) {
+    user.favoriteMovies.push(movieTitle);
+
+    res.status(200).send(`${movieTitle} has been added to ${id}'s array.`);
+} else {
+    res.status(400).send('This user couldn\'nt be found.')
+}
+
+})
+
 //Error handling function to be declared directly before the listen function. Note: Takes 4 arguments
 app.use((err, req, res, next) => {
     console.error(err.stack);
