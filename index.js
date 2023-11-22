@@ -10,6 +10,19 @@ app.use(bodyParser.json());
 //Creates a write stream (in append mode). A 'log.txt' file is created in root directory 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
 
+let users = [
+    {
+        name: "Saeed",
+        id: 1,
+        favoriteMovies: []
+    },
+    {
+        name: "Siya",
+        id: 2,
+        favoriteMovies: []
+    }
+];
+
 let movies = [
     {
         "Title": "Roma",
@@ -131,6 +144,21 @@ app.get('/movies/directors/:directorName', (req, res) => {
         res.status(400).send('Sorry, we couldn\'t find this director.')
     }
 })
+
+//Creating a new user with the POST method. The request requires a JSON object & the response will return a JSON object
+    app.post('/users', (req, res) => {
+        const newUser = req.body;
+
+    if (newUser.name) {
+        newUser.id = uuid.v4();
+        users.push(newUser);
+        res.status(201).json(newUser);
+    } else {
+        res.status(400).send('Users need names.')
+    }
+
+})
+
 
 //Error handling function to be declared directly before the listen function. Note: Takes 4 arguments
 app.use((err, req, res, next) => {
