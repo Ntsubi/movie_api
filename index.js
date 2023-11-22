@@ -13,7 +13,10 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { 
 let movies = [
     {
         "Title": "Roma",
-        "Director": "Alfonso Cuarón",
+        "Director": {
+            "Name": "Alfonso Cuarón",
+            "Born": "November 28, 1961"
+        },
         "Description": "Cleo is one of two domestic workers who help Antonio and Sofía take care of their four children in 1970s Mexico City. Complications soon arise when Antonio suddenly runs away with his mistress and Cleo finds out that she's pregnant. When Sofía decides to take the kids on vacation, she invites Cleo for a much-needed getaway to clear her mind and bond with the family.",
         "Genre": {
             "Name":"Drama",
@@ -24,7 +27,10 @@ let movies = [
 
     {
         "Title": "Marriage Story",
-        "Director":"Noah Baumbach",
+        "Director": {
+            "Name": "Noah Baumbach",
+            "Born": "September 3, 1969"
+        },
         "Description":"A stage director and his actor wife struggle through a gruelling, coast-to-coast divorce that pushes them to their personal and creative extremes.",
         "Genre": {
             "Name":"Comedy",
@@ -35,7 +41,10 @@ let movies = [
 
     {
         "Title": "Past Lives",
-        "Director": "Celine Song",
+        "Director": {
+            "Name": "Celine Song",
+            "Born": "1988"
+        },
         "Description": "Nora and Hae Sung, two deeply connected childhood friends, are wrest apart after Nora's family emigrates from South Korea. Decades later, they are reunited for one fateful week as they confront destiny, love and the choices that make a life.",
         "Genre": {
             "Name":"Drama",
@@ -46,7 +55,10 @@ let movies = [
 
     {
         "Title": "Black Panther",
-        "Director": "Ryan Coogler",
+        "Director": {
+            "Name": "Ryan Coogler",
+            "Born": "May 23, 1986"
+        },
         "Description": "After the events of Captain America: Civil War, Prince T'Challa returns home to the reclusive, technologically advanced African nation of Wakanda to serve as his country's new king. However, T'Challa soon finds that he is challenged for the throne from factions within his own country. When two foes conspire to destroy Wakanda, the hero known as Black Panther must team up with C.I.A. agent Everett K. Ross and members of the Dora Milaje, Wakandan special forces, to prevent Wakanda from being dragged into a world war.",
         "Genre": {
             "Name": "Action",
@@ -57,7 +69,10 @@ let movies = [
 
     {
         "Title": "Mudbound",
-        "Director": "Dee Rees",
+        "Director": {
+            "Name": "Dee Rees",
+            "Born": "February 7, 1977"
+        },
         "Description": "After returning from the horrors of the Second World War, two war veterans must deal with everyday life in the Mississippi Delta farm and struggle with the memories of combat.",
         "Genre": {
             "Name": "Drama",
@@ -68,18 +83,20 @@ let movies = [
 ];
 
 //.use() function to appear before specifiying routes/paths
-
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(express.static('public'));
 
+//Directs user to the index page 
 app.get('/', (req, res) => {
     res.send('Catch all your favourite movies on demand!');
 });
 
+//Routes to the movies URL and returns the entire list of movies in the array/database
 app.get('/movies', (req, res) => {
     res.status(200).json(movies);
 });
 
+//The parameter title allows you to narrow search by title. 
 app.get('/movies/:title', (req, res) => {
     const { title } = req.params;
     const movie = movies.find(movie => movie.Title === title);
@@ -91,6 +108,7 @@ app.get('/movies/:title', (req, res) => {
     }
 })
 
+//The parameter genreName allows you to narrow search by genre
 app.get('/movies/genre/:genreName', (req, res) => {
     const { genreName } = req.params;
     const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
@@ -99,6 +117,18 @@ app.get('/movies/genre/:genreName', (req, res) => {
         res.status(200).json(genre);
     } else {
         res.status(400).send('Sorry, we couldn\'t find this genre.')
+    }
+})
+
+//The parameter director allows you to narrow search by genre
+app.get('/movies/directors/:directorName', (req, res) => {
+    const { directorName } = req.params;
+    const director = movies.find(movie => movie.Director.Name === directorName).Director;
+
+    if (director) {
+        res.status(200).json(director);
+    } else {
+        res.status(400).send('Sorry, we couldn\'t find this director.')
     }
 })
 
