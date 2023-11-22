@@ -159,6 +159,21 @@ app.get('/movies/directors/:directorName', (req, res) => {
 
 })
 
+//Allowing users to update (PUT method) their names 
+app.put('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const updatedUser = req.body;
+
+    let user = users.find(user => user.id == id);
+
+if (user) {
+    user.name = updatedUser.name;
+    res.status(200).json(user);
+} else {
+    res.status(400).send('This user couldn\'nt be found.')
+}
+
+})
 
 //Error handling function to be declared directly before the listen function. Note: Takes 4 arguments
 app.use((err, req, res, next) => {
