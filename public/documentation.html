@@ -1,16 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation for Movie API</title>
 </head>
+
 <body>
-    <h1>Documentation</h1>
-    <p>The objective of this project is to build a server-side component of a movies web application. 
-        This will take the form of a REST API. Through the functionality afforded by the API, 
-        users will be able to search for information on different movies, genres or directors. 
-        They will be able to sign up, update their personal information and save their favourite movies. 
+    <h1>Documentation for Movie API</h1>
+    <p>The objective of this project is to build a server-side component of a movies web application.
+        This will take the form of a REST API. Through the functionality afforded by the API,
+        users will be able to search for information on different movies, genres or directors.
+        They will be able to sign up, update their personal information and save their favourite movies.
     </p>
+
+    <h2>Endpoints and Request Methods</h2>
+
+    <p>The resources a user could find on this application can be accessed using the URL endpoints and request methods
+        below:</p>
+
+    <table>
+        <thead>
+            <th>Business Logic</th>
+            <th>URL</th>
+            <th>HTTP Method</th>
+            <th>Request body data format</th>
+            <th>Response body data format</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Return a list of all movies</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Return data about a single movie by title</td>
+                <td>/movies/:title</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Return data about a genre by name</td>
+                <td>/movies/genre/:genreName</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Return data about a director</td>
+                <td>/movies/directors/:directorName</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Allow new user to register</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>JSON</td>
+                    <code>
+                    </code>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Allow users to update their user info, e.g. name</td>
+                <td>/users/:id</td>
+                <td>PUT</td>
+                <td>JSON</td>
+                <td>JSON </td>
+            </tr>
+            <tr>
+                <td>Allow users to add a movie to their list of favorites</td>
+                <td>/users/:id/:movieTitle</td>
+                <td>POST</td>
+                <td></td>
+                <td>Text message confirming the movie has been successfully added</td>
+            </tr>
+            <tr>
+                <td>Allow users to remove a movie from their list of favorites</td>
+                <td>/users/:id/:movieTitle</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>Text message confirming the movie has been deleted</td>
+            </tr>
+            <tr>
+                <td>Allows existing users to deregister</td>
+                <td>/users/:id/</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>Text message confirming the user has been deleted</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
 </html>
