@@ -9,6 +9,9 @@ const express = require('express'),
     Movies = Models.Movie;
     Users = Models.User;
 
+mongoose.connect('mongodb://localhost:27017/moviesDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/usersDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
 const app = express();
 app.use(bodyParser.json());
 //Creates a write stream (in append mode). A 'log.txt' file is created in root directory 
