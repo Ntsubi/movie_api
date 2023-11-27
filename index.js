@@ -4,6 +4,10 @@ const express = require('express'),
     path = require('path'),
     uuid = require('uuid'),
     bodyParser = require('body-parser');
+    mongoose = require('mongoose');
+    Models = require('./models.js');
+    Movies = Models.Movie;
+    Users = Models.User;
 
 const app = express();
 app.use(bodyParser.json());
