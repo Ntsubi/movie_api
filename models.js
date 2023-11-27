@@ -19,3 +19,11 @@ let movieSchema = mongoose.Schema({
     ReleaseYear: number
 });
 
+let usersSchema = mongoose.Schema({
+    Username: {type: String, required: true},
+    Password: {type: String, required: true},
+    Email: {type: String},
+    Birthday: {type: Date},
+    FavoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+});
+
