@@ -19,7 +19,7 @@ let movieSchema = mongoose.Schema({
     ReleaseYear: number
 });
 
-let usersSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
     Username: {type: String, required: true},
     Password: {type: String, required: true},
     Email: {type: String},
@@ -27,3 +27,8 @@ let usersSchema = mongoose.Schema({
     FavoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
+let Movie = mongoose.model('Movie', movieSchema);
+let User = mongoose.model('User', userSchema);
+
+module.exports.Movie = Movie;
+module.exports.User = User;
