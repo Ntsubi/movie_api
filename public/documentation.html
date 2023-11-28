@@ -60,15 +60,22 @@
                 <td>JSON</td>
             </tr>
             <tr>
-                <td>Allow new user to register</td>
+                <td>Create a new user profile</td>
                 <td>/users</td>
                 <td>POST</td>
                 <td>JSON, e.g.<code>
-                    <p>{name: "Saeed",</p>
-                    <p>id: 1,</p>
-                    <p>favoriteMovies: ["Moulin Rouge"]</p>
+                    <p>{"Username": "Saeed",</p>
+                    <p>"Password": "test123"</p>
+                    <p>"Email": "saeed@email.com"</p>
+                    <p>"Birthday": "1980-01-01"</p>
                 }</code></td>
-                <td>JSON</td>
+                <td>JSON, e.g.<code>
+                    <p>{"_id": "3244d87u23e"</p>
+                    <p>"Username": "Saeed",</p>
+                    <p>"Email": "saeed@email.com"</p>
+                    <p>"Birthday": "1980-01-01"</p>
+                    <p>"FavoriteMovies": []</p>
+                }</code></td>
             </tr>
             <tr>
                 <td>Return data on all users</td>
