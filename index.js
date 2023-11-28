@@ -52,15 +52,14 @@ app.get('/movies/:Title', (req, res) => {
 
 //The parameter genreName allows you to narrow search by genre
 app.get('/movies/genre/:genreName', (req, res) => {
-    const { genreName } = req.params;
-    const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
-
-    if (genre) {
-        res.status(200).json(genre);
-    } else {
-        res.status(400).send('Sorry, we couldn\'t find this genre.')
-    }
-})
+    Movies.findOne({"Genre.Name": req.params.genreName})
+    .then((movie) => {
+        res.status(200).json(movie.Genre)
+    })
+    .catch((err) => {
+        res.status(500).send('Sorry, we couldn\'t find that genre.');
+    })
+});
 
 //The parameter director allows you to narrow search by genre
 app.get('/movies/directors/:directorName', (req, res) => {
