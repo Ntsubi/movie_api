@@ -29,7 +29,14 @@ app.get('/', (req, res) => {
 
 //Routes to the movies URL and returns the entire list of movies in the array/database
 app.get('/movies', (req, res) => {
-    res.status(200).json(movies);
+    Movies.find()
+    .then((movies) => {
+        res.status(200).json(movies);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).send('Erro: ' + err);
+    })
 });
 
 //The parameter title allows you to narrow search by title. 
