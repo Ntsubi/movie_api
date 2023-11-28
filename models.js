@@ -16,13 +16,13 @@ let movieSchema = mongoose.Schema({
     ImageURL: String,
     Featured: Boolean,
     Runtime: String,
-    ReleaseYear: number
+    ReleaseYear: Number
 });
 
 let userSchema = mongoose.Schema({
     Username: {type: String, required: true},
     Password: {type: String, required: true},
-    Email: {type: String},
+    Email: {type: String, required: true},
     Birthday: {type: Date},
     FavoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
