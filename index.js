@@ -173,19 +173,21 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
     }
 })
 
-//Deregisters a user
-app.delete('/users/:id/', (req, res) => {
-    const { id } = req.params;
-
-    let user = users.find(user => user.id == id);
-
-    if (user) {
-        users = users.filter(user => user.id != id);
-        res.status(200).send(`User ${id} has been deleted.`);
+//Delete a user by username
+app.delete('/users/:Username/', async (req, res) => {
+   await Users.findOneAndDelete({Username: req.params.Username})
+   .then((user) => {
+    if(!user) {
+        res.status(400).send(req.params.Username + ' was not found.')
     } else {
-        res.status(400).send('This user couldn\'nt be found.')
+        res.status(200).send(req.params.Username + ' has been deleted.')
     }
-})
+   })
+   .catch((err) => {
+    console.log(err);
+    res.status(500).send('Error: ' + err);
+   })
+});
 
 //Error handling function to be declared directly before the listen function. Note: Takes 4 arguments
 app.use((err, req, res, next) => {
