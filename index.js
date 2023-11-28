@@ -160,18 +160,18 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 //Deletes a movie from a user's array
-app.delete('/users/:id/:movieTitle', (req, res) => {
-    const { id, movieTitle } = req.params;
-
-    let user = users.find(user => user.id == id);
-
-    if (user) {
-        user.favoriteMovies = user.favoriteMovies.filter(title => title !== movieTitle);
-        res.status(200).send(`${movieTitle} has been removed from ${id}'s array.`);
-    } else {
-        res.status(400).send('This user couldn\'nt be found.')
-    }
-})
+app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
+    await Users.findOneAndUpdate({Username: req.params.Username}, {$pull: {FavoriteMovies: req.params.MovieID }
+    },
+    {new: true})
+    .then((updatedUser) => {
+        res.status(200).json(updatedUser)
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).send('Error: + err');
+    })   
+});
 
 //Delete a user by username
 app.delete('/users/:Username/', async (req, res) => {
