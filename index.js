@@ -95,20 +95,50 @@ app.post('/users', async (req, res) => {
       });
   });
 
-//Allowing users to update (PUT method) their names 
-app.put('/users/:id', (req, res) => {
-    const { id } = req.params;
-    const updatedUser = req.body;
+  //Retrieve data on all users using the GET method
+  app.get('/users', async (req, res) => {
+    await Users.find()
+    .then((users) => {
+        res.status(200).json(users);
+    })
+    .catch((err) => {
+        res.status(500).send('Error: ' + err);
+    });
+  });
 
-    let user = users.find(user => user.id == id);
-
-    if (user) {
-        user.name = updatedUser.name;
-        res.status(200).json(user);
-    } else {
-        res.status(400).send('This user couldn\'nt be found.')
-    }
-})
+ //Return data on a specific user by name
+ app.get('/users/:Username', async (req, res) => {
+    await Users.findOne({Username: req.params.Username})
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            res.status(500).send('Error: ' + err);
+        });
+ });
+ 
+ 
+//Update (PUT method) user info by username 
+app.put('/users/:Username', async (req, res) => {
+   await Users.findOneAndUpdate({Username: req.params.Username}, 
+    {$set: 
+        {
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+        }
+    },
+    { new: true})
+    .then((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).send('Error: ' + err);
+    })
+});
+   
 
 //Adding a movie to the array
 app.post('/users/:id/:movieTitle', (req, res) => {
