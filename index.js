@@ -144,19 +144,20 @@ app.put('/users/:Username', async (req, res) => {
 });
    
 
-//Adding a movie to the array
-app.post('/users/:id/:movieTitle', (req, res) => {
-    const { id, movieTitle } = req.params;
-
-    let user = users.find(user => user.id == id);
-
-    if (user) {
-        user.favoriteMovies.push(movieTitle);
-        res.status(200).send(`${movieTitle} has been added to ${id}'s array.`);
-    } else {
-        res.status(400).send('This user couldn\'nt be found.')
-    }
-})
+//Adding a movie to a users favorite movies array
+app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+  await Users.findOneAndUpdate({Username: req.params.Username}, 
+  {$push: {FavoriteMovies: req.params.MovieID}
+    },
+    {new: true}) // This line makes sure that the updated document is returned
+    .then((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).send('Error: ' + err);
+    })
+});
 
 //Deletes a movie from a user's array
 app.delete('/users/:id/:movieTitle', (req, res) => {
