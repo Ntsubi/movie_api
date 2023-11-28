@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
 });
 
 //Routes to the movies URL and returns the entire list of movies in the array/database
-app.get('/movies', (req, res) => {
-    Movies.find()
+app.get('/movies', async (req, res) => {
+  await  Movies.find()
     .then((movies) => {
         res.status(200).json(movies);
     })
@@ -40,8 +40,8 @@ app.get('/movies', (req, res) => {
 });
 
 //The parameter title allows you to narrow search by title. 
-app.get('/movies/:Title', (req, res) => {
-    Movies.findOne({Title: req.params.Title})
+app.get('/movies/:Title', async (req, res) => {
+   await Movies.findOne({Title: req.params.Title})
     .then((movie) => {
         res.json(movie)
     })
@@ -51,8 +51,8 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //The parameter genreName allows you to narrow search by genre
-app.get('/movies/genre/:genreName', (req, res) => {
-    Movies.findOne({"Genre.Name": req.params.genreName})
+app.get('/movies/genre/:genreName', async (req, res) => {
+   await Movies.findOne({"Genre.Name": req.params.genreName})
     .then((movie) => {
         res.status(200).json(movie.Genre)
     })
@@ -63,14 +63,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 //The parameter director allows you to narrow search by genre
 app.get('/movies/directors/:directorName', (req, res) => {
-    const { directorName } = req.params;
-    const director = movies.find(movie => movie.Director.Name === directorName).Director;
-
-    if (director) {
-        res.status(200).json(director);
-    } else {
-        res.status(400).send('Sorry, we couldn\'t find this director.')
-    }
+    
 })
 
 //Creating a new user with the POST method. The request requires a JSON object & the response will return a JSON object
