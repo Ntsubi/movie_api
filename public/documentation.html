@@ -63,7 +63,7 @@
                 <td>Allow new user to register</td>
                 <td>/users</td>
                 <td>POST</td>
-                <td>JSON, e.g<code>
+                <td>JSON, e.g.<code>
                     <p>{name: "Saeed",</p>
                     <p>id: 1,</p>
                     <p>favoriteMovies: ["Moulin Rouge"]</p>
@@ -76,6 +76,18 @@
                 <td>GET</td>
                 <td>None</td>
                 <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Return data on a specific user by name</td>
+                <td>/users/:Username</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>JSON, e.g.<code>
+                    <p>{"Username": "Rakesh",</p>
+                    <p>"_id": "28031d45sw9",</p>
+                    <p>"Email": "rakesh@gmail.com,</p>
+                    <p>"FavoriteMovies": ["movieID_1", "movieID_2"]</p>
+                }</code></td>
             </tr>
             <tr>
                 <td>Allow users to update their user info, e.g. name</td>
