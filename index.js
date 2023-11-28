@@ -62,9 +62,15 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 //The parameter director allows you to narrow search by genre
-app.get('/movies/directors/:directorName', (req, res) => {
-    
-})
+app.get('/movies/directors/:directorName', async (req, res) => {
+    await Movies.findOne({"Director.Name": req.params.directorName})
+    .then((movie) => {
+        res.status(200).json(movie.Director)
+    })
+    .catch((err) => {
+        res.status(500).send('Sorry, we couldn\'t find that director.'); 
+    })
+});
 
 //Creating a new user with the POST method. The request requires a JSON object & the response will return a JSON object
 app.post('/users', async (req, res) => {
