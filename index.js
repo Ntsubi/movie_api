@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth')(app); //(app) ensures that Express is available in the auth.js file as well
+const passport = require('passport');
+    require('./passport');
 
 //Creates a write stream (in append mode). A 'log.txt' file is created in root directory 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
