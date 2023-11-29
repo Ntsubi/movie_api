@@ -35,7 +35,7 @@ app.get('/movies', async (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-            res.status(500).send('Erro: ' + err);
+            res.status(500).send('Error: ' + err);
         })
 });
 
@@ -46,7 +46,7 @@ app.get('/movies/:Title', async (req, res) => {
             res.json(movie)
         })
         .catch((err) => {
-            res.status(500).send('Sorry, we couldn\'t find that title.');
+            res.status(400).send('Sorry, we couldn\'t find that title.');
         })
 });
 
@@ -57,7 +57,7 @@ app.get('/movies/genre/:genreName', async (req, res) => {
             res.status(200).json(movie.Genre)
         })
         .catch((err) => {
-            res.status(500).send('Sorry, we couldn\'t find that genre.');
+            res.status(400).send('Sorry, we couldn\'t find that genre.');
         })
 });
 
@@ -68,7 +68,7 @@ app.get('/movies/directors/:directorName', async (req, res) => {
             res.status(200).json(movie.Director)
         })
         .catch((err) => {
-            res.status(500).send('Sorry, we couldn\'t find that director.');
+            res.status(400).send('Sorry, we couldn\'t find that director.');
         })
 });
 
@@ -139,7 +139,7 @@ app.put('/users/:Username', async (req, res) => {
             res.json(updatedUser);
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
             res.status(500).send('Error: ' + err);
         })
 });
@@ -156,7 +156,7 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
             res.json(updatedUser);
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
             res.status(500).send('Error: ' + err);
         })
 });
@@ -171,7 +171,7 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
             res.status(200).json(updatedUser)
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
             res.status(500).send('Error: + err');
         })
 });
@@ -187,7 +187,7 @@ app.delete('/users/:Username/', async (req, res) => {
             }
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
             res.status(500).send('Error: ' + err);
         })
 });
