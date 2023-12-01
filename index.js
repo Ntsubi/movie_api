@@ -1,4 +1,5 @@
-const express = require('express'),
+const express = require('express');
+const { check, validationResult } = require('express-validator'),
     morgan = require('morgan'),
     fs = require('fs'),
     path = require('path'),
