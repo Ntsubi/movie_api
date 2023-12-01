@@ -1,6 +1,6 @@
 const passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy, //This variable defines basic HTTP requests for login requests
-    Models = require('./models.js'), //Username must be checked within the database to verify user exists; password checked elsewhere
+    Models = require('./models.js'), //Username checked within the database to verify user exists; password verified using bcrypt
     passportJWT = require('passport-jwt');
 
 let Users = Models.User,
@@ -19,6 +19,12 @@ passport.use(
                         return callback(null, false, {
                             message: 'Incorrect username or password.',
                         });
+                    if (!user.validatePassword(password)) {
+                        console.log('Incorrect password');
+                        return callback(null, false, {
+                            message: 'Incorrect password.'
+                        });
+                    }
                     }
                     console.log('Finished');
                     return callback(null, user);
