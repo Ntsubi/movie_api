@@ -80,7 +80,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 
 //Creating a new user with the POST method. The request requires a JSON object & the response will return a JSON object
 app.post('/users', async (req, res) => {
-    let hashedPassword = Users.hashPassword(hashPassword.req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
         .then((user) => {
             if (user) {
