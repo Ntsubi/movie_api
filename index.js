@@ -93,7 +93,7 @@ app.post('/users', [
         }
     let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
-    
+
         .then((user) => {
             if (user) {
                 return res.status(400).send(req.body.Username + 'already exists');
@@ -142,8 +142,16 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), as
 
 
 //Update (PUT method) user info by username 
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-        if (req.user.Username !== req.params.Username) {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username is required').isAlphanumeric() ], 
+    
+    async (req, res) => {
+    let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+            if (req.user.Username !== req.params.Username) {
             return res.status(400).send('Permission denied');
         }
     await Users.findOneAndUpdate({ Username: req.params.Username },
