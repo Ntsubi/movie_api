@@ -94,7 +94,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 
 //Creating a new user with the POST method. The request requires a JSON object & the response will return a JSON object
 app.post('/users', [ 
-    check('Username', 'Username is required').isLength({min: 5}), 
+    check('Username', 'Username must be at least 5 characters long').isLength({min: 5}), 
     check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()],  
@@ -156,7 +156,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), as
 
 //Update (PUT method) user info by username 
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
-    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username must be at least 5 characters long').isLength({min: 5}),
     check('Username', 'Username is required').isAlphanumeric() ], 
     
     async (req, res) => {
