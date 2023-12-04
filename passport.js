@@ -14,17 +14,18 @@ passport.use(
             console.log(`${username} ${password}`);
             await Users.findOne({ Username: username })
                 .then((user) => {
-                    if (!user) {
-                        console.log('Incorrect username');
-                        return callback(null, false, {
-                            message: 'Incorrect username or password.',
-                        });
                     if (!user.validatePassword(password)) {
                         console.log('Incorrect password');
                         return callback(null, false, {
                             message: 'Incorrect password.'
                         });
                     }
+                    if (!user) {
+                        console.log('Incorrect username');
+                        return callback(null, false, {
+                            message: 'Incorrect username or password.',
+                        });
+                    
                     }
                     console.log('Finished');
                     return callback(null, user);
