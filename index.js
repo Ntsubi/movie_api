@@ -159,6 +159,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), as
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
   check('Username', 'Username must be at least 5 characters long').isLength({ min: 5 }),
   check('Username', 'Username is required').isAlphanumeric()],
+  check('Password', 'Password is required').not().isEmpty(),
 
   async (req, res) => {
     let errors = validationResult(req);
