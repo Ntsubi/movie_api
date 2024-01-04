@@ -158,8 +158,9 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), as
 //Update (PUT method) user info by username 
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
   check('Username', 'Username must be at least 5 characters long').isLength({ min: 5 }),
-  check('Username', 'Username is required').isAlphanumeric()],
+  check('Username', 'Username contains non-alphanumeric characters - not allowed').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()],
 
   async (req, res) => {
     let errors = validationResult(req);
